@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TRUSD — Utility Payment Token on TRON</title>
+  <meta name="description" content="TRUSD is a verified TRC-20 utility token on TRON designed for discounted payments within partner services." />
+
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#121a33;
+      --panel2:#0f1630;
+      --text:#e9ecff;
+      --muted:#b7bee6;
+      --muted2:#8e96c6;
+      --accent:#7aa2ff;
+      --accent2:#59d6ff;
+      --danger:#ff5c5c;
+      --ok:#42e29b;
+      --border:rgba(255,255,255,.08);
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", sans-serif;
+      background:
+        radial-gradient(1200px 700px at 15% 5%, rgba(122,162,255,.22), transparent 60%),
+        radial-gradient(900px 600px at 85% 10%, rgba(89,214,255,.15), transparent 60%),
+        radial-gradient(900px 800px at 50% 110%, rgba(66,226,155,.10), transparent 60%),
+        var(--bg);
+      color:var(--text);
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1100px; margin:0 auto; padding:0 20px}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border:1px solid var(--border);
+      border-radius:999px; background:rgba(255,255,255,.04);
+      color:var(--muted); font-size:13px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 14px; border-radius:12px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.06);
+      color:var(--text); font-weight:600; cursor:pointer;
+      transition: transform .15s ease, background .15s ease;
+      user-select:none;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.09)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(122,162,255,.95), rgba(89,214,255,.75));
+      border:0;
+      color:#071024;
+      box-shadow: 0 12px 30px rgba(122,162,255,.25);
+    }
+    .btn.primary:hover{background:linear-gradient(135deg, rgba(122,162,255,1), rgba(89,214,255,.85))}
+    .btn.danger{
+      background:rgba(255,92,92,.12);
+      border:1px solid rgba(255,92,92,.35);
+      color:#ffd3d3;
+    }
+
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background:rgba(11,16,32,.6);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width: 220px;
+    }
+    .brand img{
+      width:38px; height:38px;
+      border-radius:12px;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--border);
+      padding:6px;
+    }
+    .brand .name{font-weight:800; letter-spacing:.2px}
+    .brand .sub{font-size:12px; color:var(--muted2)}
+    nav ul{
+      list-style:none; display:flex; gap:16px; padding:0; margin:0;
+      flex-wrap:wrap; justify-content:center;
+    }
+    nav a{
+      color:var(--muted);
+      font-weight:600;
+      font-size:14px;
+      padding:8px 10px;
+      border-radius:10px;
+      transition: background .15s ease, color .15s ease;
+    }
+    nav a:hover{
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      text-decoration:none;
+    }
+    .nav-actions{display:flex; gap:10px; align-items:center; min-width:220px; justify-content:flex-end}
+    @media (max-width: 900px){
+      .nav-actions{display:none}
+      .brand{min-width:auto}
+    }
+
+    .hero{padding:64px 0 22px;}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 900px){.hero-grid{grid-template-columns:1fr}}
+
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .hero-left{
+      padding:28px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-left:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(500px 240px at 20% 20%, rgba(122,162,255,.22), transparent 60%),
+        radial-gradient(450px 240px at 80% 15%, rgba(89,214,255,.14), transparent 60%),
+        radial-gradient(650px 320px at 70% 90%, rgba(66,226,155,.10), transparent 60%);
+      pointer-events:none;
+      z-index:0;
+    }
+    .hero-left > *{position:relative; z-index:1}
+    h1{
+      margin:10px 0 8px;
+      font-size:46px;
+      line-height:1.06;
+      letter-spacing:-.6px;
+    }
+    .lead{color:var(--muted); font-size:16px; line-height:1.6; margin:0 0 18px}
+    .hero-cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:14px}
+    .kpis{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:18px;
+    }
+    @media (max-width: 520px){.kpis{grid-template-columns:1fr}}
+    .kpi{
+      padding:14px;
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--border);
+      border-radius:14px;
+    }
+    .kpi .v{font-size:18px; font-weight:800}
+    .kpi .l{font-size:12px; color:var(--muted2); margin-top:4px}
+
+    .hero-right{padding:22px; display:flex; flex-direction:column; gap:12px;}
+    .card{
+      padding:16px;
+      border-radius:16px;
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--border);
+    }
+    .row{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap}
+    .label{color:var(--muted2); font-size:12px}
+    .value{font-weight:700}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px; border-radius:999px;
+      background:rgba(66,226,155,.10);
+      border:1px solid rgba(66,226,155,.25);
+      color:#c7ffea;
+      font-size:13px; font-weight:700;
+      width:max-content;
+    }
+    .warn{
+      background:rgba(255,92,92,.10);
+      border:1px solid rgba(255,92,92,.28);
+      color:#ffd2d2;
+      border-radius:16px;
+      padding:14px 16px;
+    }
+    section{padding:26px 0}
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:16px;
+      margin-bottom:14px;
+    }
+    .section-title h2{margin:0; font-size:22px}
+    .section-title p{margin:0; color:var(--muted2); font-size:13px}
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 900px){.grid3{grid-template-columns:1fr}}
+
+    .item{
+      padding:18px;
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(18,26,51,.7), rgba(15,22,48,.6));
+      box-shadow: 0 18px 50px rgba(0,0,0,.25);
+      position:relative;
+      overflow:hidden;
+    }
+    .item:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(280px 140px at 20% 20%, rgba(122,162,255,.12), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .item > *{position:relative}
+    .item h3{margin:10px 0 8px; font-size:16px}
+    .item p{margin:0; color:var(--muted); line-height:1.55}
+    .icon{
+      width:42px; height:42px; border-radius:14px;
+      display:grid; place-items:center;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--border);
+      font-size:18px;
+    }
+
+    .how{display:grid; grid-template-columns: 1fr 1fr; gap:14px;}
+    @media (max-width: 900px){.how{grid-template-columns:1fr}}
+    .step{
+      padding:18px;
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.18);
+    }
+    .step .n{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:34px; height:34px; border-radius:12px;
+      background:rgba(122,162,255,.18);
+      border:1px solid rgba(122,162,255,.28);
+      font-weight:900;
+      margin-bottom:10px;
+    }
+    .step h3{margin:0 0 8px; font-size:16px}
+    .step p{margin:0; color:var(--muted); line-height:1.55}
+
+    .addr{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:12px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.2);
+      overflow:auto;
+    }
+    .chips{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .tiny{font-size:12px; color:var(--muted2)}
+
+    /* Diagram */
+    .diagram-wrap{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:rgba(0,0,0,.18);
+      padding:14px;
+      overflow:auto;
+    }
+    .diagram-hint{margin:0; color:var(--muted2); font-size:13px}
+
+    /* FAQ */
+    .faq details{
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.16);
+      border-radius:14px;
+      padding:12px 14px;
+      margin-bottom:10px;
+    }
+    .faq summary{
+      cursor:pointer;
+      font-weight:800;
+      color:var(--text);
+      list-style:none;
+    }
+    .faq summary::-webkit-details-marker{display:none}
+    .faq p{margin:10px 0 0; color:var(--muted); line-height:1.6}
+
+    footer{
+      padding:26px 0 34px;
+      border-top:1px solid var(--border);
+      margin-top:10px;
+      color:var(--muted2);
+      font-size:13px;
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:16px;
+      align-items:start;
+    }
+    @media (max-width: 900px){.footer-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="nav">
+        <div class="brand">
+          <img src="assets/logo.png" alt="TRUSD logo" />
+          <div>
+            <div class="name">TRUSD</div>
+            <div class="sub">TRC-20 Utility Payment Token</div>
+          </div>
+        </div>
+
+        <nav>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#usecases">Use cases</a></li>
+            <li><a href="#how">How it works</a></li>
+            <li><a href="#system">Token system</a></li>
+            <li><a href="#token">Token</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <a class="btn" href="https://x.com/your_Trust1" target="_blank" rel="noreferrer">X / Twitter</a>
+          <a class="btn primary" href="https://tronscan.org/#/contract/TQdvK141uDpkk2D9h2NNEJ5Kf9BQ2GR85L" target="_blank" rel="noreferrer">View on Tronscan</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero" id="about">
+      <div class="hero-grid">
+        <div class="panel hero-left">
+          <span class="pill">✅ Verified contract • TRON (TRC-20)</span>
+          <h1>TRUSD — utility token for discounted payments</h1>
+          <p class="lead">
+            TRUSD is a TRC-20 token on the TRON blockchain designed for discounted payments and internal settlements within partner services.
+            It is built as a <strong>utility instrument</strong> — not as a stablecoin.
+          </p>
+
+          <div class="hero-cta">
+            <a class="btn primary" href="#system">View token system</a>
+            <a class="btn" href="#token">Token details</a>
+            <a class="btn" href="mailto:yourtrusd@gmail.com">Contact</a>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi">
+              <div class="v">TRC-20</div>
+              <div class="l">Token standard</div>
+            </div>
+            <div class="kpi">
+              <div class="v">6</div>
+              <div class="l">Decimals</div>
+            </div>
+            <div class="kpi">
+              <div class="v">Utility</div>
+              <div class="l">Discount / payments</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel hero-right">
+          <div class="card">
+            <div class="badge">🔎 Transparency first</div>
+            <div style="height:10px"></div>
+            <div class="row">
+              <div>
+                <div class="label">Network</div>
+                <div class="value">TRON Mainnet</div>
+              </div>
+              <div>
+                <div class="label">Standard</div>
+                <div class="value">TRC-20</div>
+              </div>
+            </div>
+            <div style="height:10px"></div>
+            <div class="label">Contract address</div>
+            <div class="addr">TQdvK141uDpkk2D9h2NNEJ5Kf9BQ2GR85L</div>
+            <div class="chips">
+              <a class="btn" href="https://tronscan.org/#/contract/TQdvK141uDpkk2D9h2NNEJ5Kf9BQ2GR85L" target="_blank" rel="noreferrer">Contract</a>
+              <a class="btn" href="https://tronscan.org/#/token20/TQdvK141uDpkk2D9h2NNEJ5Kf9BQ2GR85L" target="_blank" rel="noreferrer">Token page</a>
+            </div>
+          </div>
+
+          <div class="warn">
+            <strong>Important notice</strong>
+            <div style="height:8px"></div>
+            TRUSD is <strong>NOT a stablecoin</strong> and does not guarantee any peg to USD.
+            TRUSD is not an investment product and provides no ownership rights.
+          </div>
+
+          <div class="card">
+            <div class="label">Official contacts</div>
+            <div style="height:6px"></div>
+            <div class="chips">
+              <a class="btn" href="https://x.com/your_Trust1" target="_blank" rel="noreferrer">X / Twitter</a>
+              <a class="btn" href="mailto:yourtrusd@gmail.com">yourtrusd@gmail.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USE CASES -->
+    <section id="usecases">
+      <div class="section-title">
+        <div>
+          <h2>Use cases</h2>
+          <p>Where TRUSD makes sense in a real ecosystem</p>
+        </div>
+        <span class="pill">Designed for partners & services</span>
+      </div>
+
+      <div class="grid3">
+        <div class="item">
+          <div class="icon">💳</div>
+          <h3>Discounted payments</h3>
+          <p>Partners can offer reduced fees when a user pays in TRUSD instead of alternative methods.</p>
+        </div>
+        <div class="item">
+          <div class="icon">🤝</div>
+          <h3>Partner settlement</h3>
+          <p>TRUSD can be used as an internal settlement instrument in partner platforms where it is accepted as utility.</p>
+        </div>
+        <div class="item">
+          <div class="icon">🧾</div>
+          <h3>Transparency</h3>
+          <p>All transfers are on-chain. Contract is verifiable on Tronscan to reduce confusion and fraud risk.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how">
+      <div class="section-title">
+        <div>
+          <h2>How it works</h2>
+          <p>Simple flow: use TRUSD for utility, keep everything transparent</p>
+        </div>
+        <span class="pill">Simple • Transparent • Verifiable</span>
+      </div>
+
+      <div class="how">
+        <div class="step">
+          <div class="n">1</div>
+          <h3>User gets TRUSD</h3>
+          <p>Users can obtain TRUSD where it is distributed/accepted (partners, promotions, or markets with liquidity).</p>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <h3>Pay in TRUSD for a discount</h3>
+          <p>Partners may provide discounts or better terms when payment is made in TRUSD versus other assets.</p>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <h3>Partners manage settlement</h3>
+          <p>Partners can keep TRUSD, use it for internal operations, or swap via markets with available liquidity.</p>
+        </div>
+        <div class="step">
+          <div class="n">4</div>
+          <h3>Clear disclosure</h3>
+          <p>TRUSD is utility-only: no peg, no guarantees, no investment promises. Always verify the contract address.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOKEN SYSTEM DIAGRAM -->
+    <section id="system">
+      <div class="section-title">
+        <div>
+          <h2>Token system</h2>
+          <p>Where value can flow (simplified, high-level)</p>
+        </div>
+        <span class="pill">Utility • Partners • Markets</span>
+      </div>
+
+      <p class="diagram-hint">
+        This diagram shows a <strong>utility payment model</strong>. It does not imply any peg to USD and does not promise profits.
+      </p>
+
+      <div class="diagram-wrap" aria-label="TRUSD token system diagram">
+        <!-- Simple SVG diagram (no external libs) -->
+        <svg width="980" height="420" viewBox="0 0 980 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TRUSD flows between users, partners, markets, and optional burn/reserve">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="rgba(122,162,255,0.9)"/>
+              <stop offset="1" stop-color="rgba(89,214,255,0.7)"/>
+            </linearGradient>
+            <style>
+              .box{fill:rgba(0,0,0,0.25); stroke:rgba(255,255,255,0.14); stroke-width:1.2;}
+              .title{fill:#e9ecff; font:700 15px ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;}
+              .text{fill:#b7bee6; font:400 12px ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;}
+              .arrow{stroke:rgba(122,162,255,0.85); stroke-width:2.2; fill:none; marker-end:url(#m);}
+              .arrow2{stroke:rgba(66,226,155,0.75); stroke-width:2.2; fill:none; marker-end:url(#m2);}
+              .arrow3{stroke:rgba(255,92,92,0.75); stroke-width:2.2; fill:none; marker-end:url(#m3);}
+              .cap{fill:#8e96c6; font:600 11px ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;}
+            </style>
+
+            <marker id="m" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+              <path d="M0,0 L10,3 L0,6 Z" fill="rgba(122,162,255,0.85)"/>
+            </marker>
+            <marker id="m2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+              <path d="M0,0 L10,3 L0,6 Z" fill="rgba(66,226,155,0.8)"/>
+            </marker>
+            <marker id="m3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+              <path d="M0,0 L10,3 L0,6 Z" fill="rgba(255,92,92,0.8)"/>
+            </marker>
+          </defs>
+
+          <!-- Boxes -->
+          <rect class="box" x="40" y="70" rx="16" ry="16" width="260" height="120"/>
+          <text class="title" x="62" y="105">Users</text>
+          <text class="text" x="62" y="130">• Hold TRUSD</text>
+          <text class="text" x="62" y="150">• Pay partners for discounts</text>
+          <text class="text" x="62" y="170">• Can swap via markets (if liquidity)</text>
+
+          <rect class="box" x="360" y="40" rx="16" ry="16" width="260" height="140"/>
+          <text class="title" x="382" y="75">Partner Services</text>
+          <text class="text" x="382" y="100">• Accept TRUSD for utility payments</text>
+          <text class="text" x="382" y="120">• Optional discount policy</text>
+          <text class="text" x="382" y="140">• May keep TRUSD or swap</text>
+
+          <rect class="box" x="680" y="70" rx="16" ry="16" width="260" height="120"/>
+          <text class="title" x="702" y="105">Markets / DEX Pool</text>
+          <text class="text" x="702" y="130">• TRUSD/USDT liquidity</text>
+          <text class="text" x="702" y="150">• Price discovery</text>
+          <text class="text" x="702" y="170">• Swaps affect price (small pools)</text>
+
+          <rect class="box" x="360" y="230" rx="16" ry="16" width="260" height="140"/>
+          <text class="title" x="382" y="265">Project Treasury (optional)</text>
+          <text class="text" x="382" y="290">• Operational funds & transparency</text>
+          <text class="text" x="382" y="310">• Partner support / integrations</text>
+          <text class="text" x="382" y="330">• Policy-based actions</text>
+
+          <rect class="box" x="680" y="250" rx="16" ry="16" width="260" height="110"/>
+          <text class="title" x="702" y="285">Optional Burn (policy)</text>
+          <text class="text" x="702" y="310">• If enabled by the project</text>
+          <text class="text" x="702" y="330">• Reduces supply over time</text>
+
+          <!-- Arrows -->
+          <path class="arrow" d="M300 130 C330 130, 330 110, 360 110"/>
+          <text class="cap" x="312" y="118">pay TRUSD</text>
+
+          <path class="arrow" d="M620 110 C650 110, 650 130, 680 130"/>
+          <text class="cap" x="632" y="118">swap / liquidity</text>
+
+          <path class="arrow2" d="M490 180 C490 205, 490 205, 490 230"/>
+          <text class="cap" x="505" y="208">settlement / ops</text>
+
+          <path class="arrow2" d="M620 300 C650 300, 650 300, 680 300"/>
+          <text class="cap" x="632" y="290">policy action</text>
+
+          <!-- Dashed note -->
+          <path d="M170 190 C170 240, 250 250, 360 270" stroke="rgba(255,255,255,0.18)" stroke-width="2" fill="none" stroke-dasharray="6 7"/>
+          <text class="cap" x="75" y="235">users may swap if liquidity exists</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- TOKEN INFO -->
+    <section id="token">
+      <div class="section-title">
+        <div>
+          <h2>Token information</h2>
+          <p>Essential parameters and official references</p>
+        </div>
+        <span class="pill">TRON • TRC-20 • Decimals 6</span>
+      </div>
+
+      <div class="grid3">
+        <div class="item">
+          <div class="icon">🧾</div>
+          <h3>Contract</h3>
+          <p class="tiny">Official contract address (verify before use):</p>
+          <div class="addr">TQdvK141uDpkk2D9h2NNEJ5Kf9BQ2GR85L</div>
+          <div class="chips">
+            <a class="btn" href="https://tronscan.org/#/contract/TQdvK141uDpkk2D9h2NNEJ5Kf9BQ2GR85L" target="_blank" rel="noreferrer">Open contract</a>
+            <a class="btn" href="https://tronscan.org/#/token20/TQdvK141uDpkk2D9h2NNEJ5Kf9BQ2GR85L" target="_blank" rel="noreferrer">Token page</a>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="icon">⚙️</div>
+          <h3>Parameters</h3>
+          <p>
+            • Standard: <strong>TRC-20</strong><br/>
+            • Decimals: <strong>6</strong><br/>
+            • Network: <strong>TRON Mainnet</strong><br/>
+            • Verified contract: <strong>Yes</strong>
+          </p>
+        </div>
+
+        <div class="item">
+          <div class="icon">🛡️</div>
+          <h3>Safety notice</h3>
+          <p>
+            TRUSD is <strong>NOT a stablecoin</strong> and does not guarantee any peg to USD.
+            TRUSD is not an investment product. Use it only for its intended utility.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="section-title">
+        <div>
+          <h2>FAQ</h2>
+          <p>Quick answers to common questions</p>
+        </div>
+        <span class="pill">Clarity reduces risk</span>
+      </div>
+
+      <div class="faq">
+        <details open>
+          <summary>Why can’t I see the price on Tronscan?</summary>
+          <p>
+            Price data appears only when there is market liquidity (e.g., a DEX pool) and indexers update market metadata.
+            New tokens can show “no price” for some time.
+          </p>
+        </details>
+
+        <details>
+          <summary>Is TRUSD a stablecoin?</summary>
+          <p>
+            No. TRUSD is a utility token. It does not guarantee any peg to USD and does not promise redemption at 1:1.
+          </p>
+        </details>
+
+        <details>
+          <summary>How do I verify I’m using the correct token?</summary>
+          <p>
+            Always check the official contract address:
+            <strong>TQdvK141uDpkk2D9h2NNEJ5Kf9BQ2GR85L</strong>.
+            Never trust token names alone.
+          </p>
+        </details>
+
+        <details>
+          <summary>Where can I contact the project?</summary>
+          <p>
+            X/Twitter: <a href="https://x.com/your_Trust1" target="_blank" rel="noreferrer">@your_Trust1</a><br/>
+            Email: <a href="mailto:yourtrusd@gmail.com">yourtrusd@gmail.com</a>
+          </p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <img src="assets/logo.png" alt="TRUSD logo" style="width:34px;height:34px;border-radius:12px;border:1px solid var(--border);padding:6px;background:rgba(255,255,255,.06);" />
+            <div style="font-weight:900;">TRUSD</div>
+          </div>
+          <p style="margin:10px 0 0; color:var(--muted); line-height:1.6;">
+            TRUSD is a TRC-20 utility token on TRON designed for discounted payments within partner services.
+            This website is informational only and does not constitute financial advice.
+          </p>
+          <p class="tiny" style="margin-top:10px;">
+            © 2025 TRUSD Project • Contact: <a href="mailto:yourtrusd@gmail.com">yourtrusd@gmail.com</a>
+          </p>
+        </div>
+
+        <div>
+          <div style="font-weight:900;">About us</div>
+          <p class="tiny" style="line-height:1.6; margin-top:8px;">
+            We are building a utility payment layer for partner digital services on TRON.
+            Transparency and clear disclosure reduce user risk and confusion.
+          </p>
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn" href="https://tronscan.org/#/contract/TQdvK141uDpkk2D9h2NNEJ5Kf9BQ2GR85L" target="_blank" rel="noreferrer">Tronscan</a>
+            <a class="btn" href="https://x.com/your_Trust1" target="_blank" rel="noreferrer">X / Twitter</a>
+            <a class="btn" href="mailto:yourtrusd@gmail.com">Email</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Highlight active menu item on scroll
+    const sections = ["about","usecases","how","system","token","faq"].map(id => document.getElementById(id));
+    const links = Array.from(document.querySelectorAll("nav a"));
+    const onScroll = () => {
+      const y = window.scrollY + 120;
+      let current = "about";
+      for (const s of sections) if (s && s.offsetTop <= y) current = s.id;
+      links.forEach(a => {
+        const active = a.getAttribute("href") === "#" + current;
+        a.style.background = active ? "rgba(255,255,255,.08)" : "transparent";
+        a.style.color = active ? "var(--text)" : "var(--muted)";
+      });
+    };
+    window.addEventListener("scroll", onScroll, {passive:true});
+    onScroll();
+  </script>
+</body>
+</html>
