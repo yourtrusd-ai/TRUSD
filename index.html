@@ -9,8 +9,6 @@
   <style>
     :root{
       --bg:#0b1020;
-      --panel:#121a33;
-      --panel2:#0f1630;
       --text:#e9ecff;
       --muted:#b7bee6;
       --muted2:#8e96c6;
@@ -316,7 +314,7 @@
     <div class="container">
       <div class="nav">
         <div class="brand">
-          <img src="logo.png" alt="TRUSD logo" />
+          <img src="assets/logo.png" alt="TRUSD logo" />
           <div>
             <div class="name">TRUSD</div>
             <div class="sub">TRC-20 Utility Payment Token</div>
@@ -329,6 +327,8 @@
             <li><a href="#usecases">Use cases</a></li>
             <li><a href="#how">How it works</a></li>
             <li><a href="#system">Token system</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="#partners">Partners</a></li>
             <li><a href="#token">Token</a></li>
             <li><a href="#faq">FAQ</a></li>
           </ul>
@@ -390,11 +390,13 @@
                 <div class="value">TRC-20</div>
               </div>
             </div>
+
             <div style="height:10px"></div>
             <div class="label">Contract address</div>
-            <div class="addr">TQdvK141uDpkk2D9h2NNEJ5Kf9BQ2GR85L</div>
+            <div class="addr" id="contractAddress">TQdvK141uDpkk2D9h2NNEJ5Kf9BQ2GR85L</div>
             <div class="chips">
-              <a class="btn" href="https://tronscan.org/#/contract/TQdvK141uDpkk2D9h2NNEJ5Kf9BQ2GR85L" target="_blank" rel="noreferrer">Contract</a>
+              <button class="btn" onclick="copyContract()">Copy address</button>
+              <a class="btn" href="https://tronscan.org/#/contract/TQdvK141uDpkk2D9h2NNEJ5Kf9BQ2GR85L" target="_blank" rel="noreferrer">Open contract</a>
               <a class="btn" href="https://tronscan.org/#/token20/TQdvK141uDpkk2D9h2NNEJ5Kf9BQ2GR85L" target="_blank" rel="noreferrer">Token page</a>
             </div>
           </div>
@@ -496,20 +498,14 @@
       </p>
 
       <div class="diagram-wrap" aria-label="TRUSD token system diagram">
-        <!-- Simple SVG diagram (no external libs) -->
-        <svg width="980" height="420" viewBox="0 0 980 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TRUSD flows between users, partners, markets, and optional burn/reserve">
+        <svg width="980" height="420" viewBox="0 0 980 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TRUSD flows between users, partners, markets, and optional burn/treasury">
           <defs>
-            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="rgba(122,162,255,0.9)"/>
-              <stop offset="1" stop-color="rgba(89,214,255,0.7)"/>
-            </linearGradient>
             <style>
               .box{fill:rgba(0,0,0,0.25); stroke:rgba(255,255,255,0.14); stroke-width:1.2;}
               .title{fill:#e9ecff; font:700 15px ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;}
               .text{fill:#b7bee6; font:400 12px ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;}
               .arrow{stroke:rgba(122,162,255,0.85); stroke-width:2.2; fill:none; marker-end:url(#m);}
               .arrow2{stroke:rgba(66,226,155,0.75); stroke-width:2.2; fill:none; marker-end:url(#m2);}
-              .arrow3{stroke:rgba(255,92,92,0.75); stroke-width:2.2; fill:none; marker-end:url(#m3);}
               .cap{fill:#8e96c6; font:600 11px ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;}
             </style>
 
@@ -519,12 +515,8 @@
             <marker id="m2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
               <path d="M0,0 L10,3 L0,6 Z" fill="rgba(66,226,155,0.8)"/>
             </marker>
-            <marker id="m3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-              <path d="M0,0 L10,3 L0,6 Z" fill="rgba(255,92,92,0.8)"/>
-            </marker>
           </defs>
 
-          <!-- Boxes -->
           <rect class="box" x="40" y="70" rx="16" ry="16" width="260" height="120"/>
           <text class="title" x="62" y="105">Users</text>
           <text class="text" x="62" y="130">• Hold TRUSD</text>
@@ -554,7 +546,6 @@
           <text class="text" x="702" y="310">• If enabled by the project</text>
           <text class="text" x="702" y="330">• Reduces supply over time</text>
 
-          <!-- Arrows -->
           <path class="arrow" d="M300 130 C330 130, 330 110, 360 110"/>
           <text class="cap" x="312" y="118">pay TRUSD</text>
 
@@ -563,14 +554,94 @@
 
           <path class="arrow2" d="M490 180 C490 205, 490 205, 490 230"/>
           <text class="cap" x="505" y="208">settlement / ops</text>
-
-          <path class="arrow2" d="M620 300 C650 300, 650 300, 680 300"/>
-          <text class="cap" x="632" y="290">policy action</text>
-
-          <!-- Dashed note -->
-          <path d="M170 190 C170 240, 250 250, 360 270" stroke="rgba(255,255,255,0.18)" stroke-width="2" fill="none" stroke-dasharray="6 7"/>
-          <text class="cap" x="75" y="235">users may swap if liquidity exists</text>
         </svg>
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section id="roadmap">
+      <div class="section-title">
+        <div>
+          <h2>Roadmap</h2>
+          <p>Planned steps focused on utility and transparency</p>
+        </div>
+        <span class="pill">Public & realistic</span>
+      </div>
+
+      <div class="grid3">
+        <div class="item">
+          <div class="icon">🚀</div>
+          <h3>Phase 1 — Foundation</h3>
+          <p>
+            • Contract deployment & verification<br/>
+            • Website and documentation<br/>
+            • Initial liquidity setup<br/>
+            • Basic token distribution
+          </p>
+        </div>
+
+        <div class="item">
+          <div class="icon">🤝</div>
+          <h3>Phase 2 — Integrations</h3>
+          <p>
+            • Partner outreach<br/>
+            • TRUSD payment acceptance pilots<br/>
+            • Discount-based use cases<br/>
+            • Transparency updates
+          </p>
+        </div>
+
+        <div class="item">
+          <div class="icon">🧩</div>
+          <h3>Phase 3 — Utility Expansion</h3>
+          <p>
+            • Additional service categories<br/>
+            • Optional incentive mechanics<br/>
+            • Community feedback loop<br/>
+            • Long-term sustainability review
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTNERS -->
+    <section id="partners">
+      <div class="section-title">
+        <div>
+          <h2>Partners</h2>
+          <p>Open for integration and collaboration</p>
+        </div>
+        <span class="pill">Utility-first</span>
+      </div>
+
+      <div class="grid3">
+        <div class="item">
+          <div class="icon">🛠️</div>
+          <h3>Service Providers</h3>
+          <p>
+            Digital services interested in offering discounts
+            or alternative settlement methods using TRUSD.
+          </p>
+        </div>
+
+        <div class="item">
+          <div class="icon">💼</div>
+          <h3>Platforms & Tools</h3>
+          <p>
+            Platforms that can integrate TRUSD as a utility
+            token for internal payments or loyalty mechanics.
+          </p>
+        </div>
+
+        <div class="item">
+          <div class="icon">📩</div>
+          <h3>Become a Partner</h3>
+          <p>
+            Interested in accepting TRUSD?<br/>
+            Contact us at:<br/>
+            <a href="mailto:yourtrusd@gmail.com">yourtrusd@gmail.com</a>
+          </p>
+        </div>
       </div>
     </section>
 
@@ -698,8 +769,16 @@
   </footer>
 
   <script>
+    // Copy contract address
+    function copyContract() {
+      const text = document.getElementById("contractAddress").innerText.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Contract address copied to clipboard");
+      });
+    }
+
     // Highlight active menu item on scroll
-    const sections = ["about","usecases","how","system","token","faq"].map(id => document.getElementById(id));
+    const sections = ["about","usecases","how","system","roadmap","partners","token","faq"].map(id => document.getElementById(id));
     const links = Array.from(document.querySelectorAll("nav a"));
     const onScroll = () => {
       const y = window.scrollY + 120;
