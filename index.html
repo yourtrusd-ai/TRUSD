@@ -1,59 +1,67 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Trust (TRU) — TRC20 Utility Token</title>
-  <meta name="description" content="Trust (TRU) — utility token on TRON (TRC-20). Discounts, partner payments, and transparent token mechanics." />
-  <meta name="theme-color" content="#0b1020" />
+  <title>Trust (TRU) — TRC-20 Utility Token on TRON</title>
+  <meta name="description" content="Trust (TRU) is a TRC-20 utility token on TRON designed for partner payments, discounts, and transparent token mechanics." />
+  <meta name="theme-color" content="#eef4ff" />
 
   <style>
     :root{
-      --bg:#070a14;
-      --panel:#0b1020;
-      --panel2:#0e1633;
-      --text:#e9eeff;
-      --muted:#a7b0d6;
-      --line:rgba(255,255,255,.08);
-      --brand:#7aa6ff;
-      --brand2:#72ffd8;
-      --warn:#ffcc66;
-      --ok:#6dff8f;
-      --bad:#ff6d6d;
-      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --bg1:#f5f8ff;
+      --bg2:#eef4ff;
+      --panel: rgba(255,255,255,.78);
+      --panel2: rgba(255,255,255,.92);
+      --text:#0c1633;
+      --muted:#4a5a7a;
+      --line: rgba(16, 31, 69, .10);
+      --brand:#2f6bff;
+      --brand2:#15c7a8;
+      --warn:#ffb020;
+      --ok:#1fa86d;
+      --shadow: 0 18px 55px rgba(15, 33, 80, .12);
       --radius: 18px;
       --radius2: 26px;
       --max: 1120px;
     }
+
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
       color:var(--text);
-      background: radial-gradient(1200px 700px at 10% 0%, rgba(122,166,255,.18), transparent 55%),
-                  radial-gradient(900px 650px at 90% 10%, rgba(114,255,216,.12), transparent 50%),
-                  linear-gradient(180deg, var(--bg), #050714 70%, #040512);
-      line-height:1.45;
+      background:
+        radial-gradient(1100px 650px at 10% 0%, rgba(47,107,255,.18), transparent 55%),
+        radial-gradient(900px 620px at 90% 10%, rgba(21,199,168,.14), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2) 70%, #f8fbff);
+      line-height:1.5;
     }
+
     a{color:inherit}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 18px;}
+
+    /* NAV */
     .nav{
-      position:sticky; top:0; z-index:20;
+      position:sticky; top:0; z-index:50;
       backdrop-filter: blur(10px);
-      background: rgba(7,10,20,.72);
+      background: rgba(245,248,255,.78);
       border-bottom: 1px solid var(--line);
     }
     .nav-inner{
       display:flex; align-items:center; justify-content:space-between;
-      padding: 14px 0;
       gap:14px;
+      padding: 14px 0;
     }
     .brand{
-      display:flex; align-items:center; gap:12px; text-decoration:none;
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none;
     }
     .brand img{
-      width:40px; height:40px; border-radius:12px;
-      background: rgba(255,255,255,.03);
+      width:40px; height:40px;
+      border-radius:12px;
+      background: rgba(255,255,255,.9);
       border:1px solid var(--line);
       box-shadow: var(--shadow);
       object-fit:contain;
@@ -65,7 +73,7 @@
       border:1px solid var(--line);
       border-radius:999px;
       color:var(--muted);
-      background: rgba(255,255,255,.03);
+      background: rgba(255,255,255,.6);
       font-size:13px;
       white-space:nowrap;
     }
@@ -77,115 +85,112 @@
       border:1px solid transparent;
       color:var(--muted);
       font-size:14px;
+      background: transparent;
     }
     .nav-links a:hover{
       border-color:var(--line);
-      background: rgba(255,255,255,.03);
+      background: rgba(255,255,255,.75);
       color:var(--text);
     }
 
-    .hero{
-      padding: 44px 0 24px;
-    }
+    /* HERO */
+    header.hero{padding: 42px 0 18px;}
     .hero-grid{
       display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap: 22px;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
       align-items:stretch;
     }
     @media (max-width: 960px){
-      .hero-grid{grid-template-columns:1fr; }
+      .hero-grid{grid-template-columns:1fr;}
     }
+
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      background: linear-gradient(180deg, var(--panel2), var(--panel));
       border: 1px solid var(--line);
       border-radius: var(--radius2);
       box-shadow: var(--shadow);
     }
-    .hero-left{
-      padding: 24px;
-      overflow:hidden;
-      position:relative;
-    }
+    .hero-left{padding: 24px; position:relative; overflow:hidden;}
     .glow{
       position:absolute;
-      inset:-40px -80px auto auto;
-      width:340px; height:340px;
-      background: radial-gradient(circle at 30% 30%, rgba(122,166,255,.28), transparent 60%),
-                  radial-gradient(circle at 70% 60%, rgba(114,255,216,.18), transparent 55%);
+      inset:-60px -120px auto auto;
+      width:360px; height:360px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(47,107,255,.18), transparent 62%),
+        radial-gradient(circle at 70% 60%, rgba(21,199,168,.14), transparent 60%);
       filter: blur(6px);
-      opacity:.85;
+      opacity:1;
       pointer-events:none;
     }
+
     h1{
-      margin: 6px 0 10px;
+      margin: 8px 0 10px;
       font-size: 38px;
       line-height:1.1;
       letter-spacing: .2px;
     }
     .sub{
-      margin:0 0 18px;
+      margin:0 0 16px;
       color:var(--muted);
       font-size: 16px;
-      max-width: 64ch;
+      max-width: 70ch;
     }
-    .cta-row{
-      display:flex; gap:10px; flex-wrap:wrap;
-      margin-top: 12px;
-    }
+
+    .cta-row{display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px;}
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
       gap:10px;
       padding: 12px 14px;
       border-radius: 14px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
+      background: rgba(255,255,255,.8);
       color: var(--text);
       text-decoration:none;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 14px;
     }
-    .btn:hover{ background: rgba(255,255,255,.07); }
+    .btn:hover{ background: rgba(255,255,255,1); }
     .btn.primary{
-      border-color: rgba(122,166,255,.45);
-      background: linear-gradient(135deg, rgba(122,166,255,.22), rgba(114,255,216,.12));
+      border-color: rgba(47,107,255,.35);
+      background: linear-gradient(135deg, rgba(47,107,255,.14), rgba(21,199,168,.10));
     }
 
-    .hero-right{
-      padding: 18px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
+    .hero-right{padding: 18px; display:flex; flex-direction:column; gap:12px;}
     .stat{
       padding: 14px;
       border-radius: var(--radius);
       border:1px solid var(--line);
-      background: rgba(0,0,0,.15);
+      background: rgba(255,255,255,.82);
     }
     .stat .k{color:var(--muted); font-size:13px}
-    .stat .v{font-size:16px; font-weight:700; margin-top:6px}
+    .stat .v{font-size:16px; font-weight:800; margin-top:6px}
+
     .mono{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       font-size: 12.8px;
-      color: #dfe7ff;
+      color: #132552;
       word-break: break-all;
     }
-    .muted{color:var(--muted)}
+
     .hr{height:1px; background: var(--line); margin: 14px 0;}
     section{padding: 18px 0;}
     h2{margin:0 0 12px; font-size: 22px;}
+    h3{margin:0 0 8px; font-size: 18px;}
+
     .grid3{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
     }
     @media (max-width: 920px){ .grid3{grid-template-columns:1fr;} }
+
     .mini{
       padding: 16px;
       border-radius: var(--radius);
       border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 10px 26px rgba(15,33,80,.06);
     }
     .mini b{display:block; margin-bottom:8px}
     .tag{
@@ -196,27 +201,58 @@
       border:1px solid var(--line);
       color:var(--muted);
       font-size: 12.5px;
-      background: rgba(0,0,0,.18);
+      background: rgba(255,255,255,.9);
     }
 
-    .flow{
-      padding: 18px;
-      border-radius: var(--radius2);
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      overflow:auto;
-    }
-    .flow svg{width:100%; min-width: 860px; height:auto; display:block;}
-    .warn{
+    .note{
       border-left: 4px solid var(--warn);
-      background: rgba(255,204,102,.08);
+      background: rgba(255,176,32,.10);
       padding: 12px 14px;
       border-radius: 14px;
       color: var(--muted);
-      border: 1px solid rgba(255,204,102,.22);
+      border: 1px solid rgba(255,176,32,.20);
+    }
+    .ok{
+      border-left: 4px solid var(--ok);
+      background: rgba(31,168,109,.08);
+      padding: 12px 14px;
+      border-radius: 14px;
+      color: var(--muted);
+      border: 1px solid rgba(31,168,109,.18);
     }
 
-    .footer{
+    /* FLOW */
+    .flow{
+      padding: 16px;
+      border-radius: var(--radius2);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 14px 40px rgba(15,33,80,.08);
+      overflow:hidden;
+    }
+    .flow svg{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    /* FAQ */
+    details{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.86);
+      padding: 12px 14px;
+      box-shadow: 0 10px 26px rgba(15,33,80,.06);
+    }
+    details + details{margin-top:10px}
+    summary{
+      cursor:pointer;
+      font-weight:800;
+    }
+    details p{margin:10px 0 0; color:var(--muted)}
+
+    /* FOOTER */
+    footer{
       padding: 28px 0 34px;
       border-top:1px solid var(--line);
       margin-top: 18px;
@@ -231,7 +267,6 @@
     @media (max-width: 860px){ .footer-grid{grid-template-columns:1fr;} }
     .small-links a{color:var(--muted); text-decoration:none;}
     .small-links a:hover{color:var(--text)}
-    .badge-ok{color:var(--ok)}
   </style>
 </head>
 
@@ -240,20 +275,21 @@
   <div class="nav">
     <div class="wrap">
       <div class="nav-inner">
-        <a class="brand" href="#top">
+        <a class="brand" href="#top" aria-label="Trust home">
           <img src="logo.png" alt="Trust logo" />
           <div>
             <b>Trust</b>
-            <div class="pill" style="margin-top:6px;">TRC-20 • TRON</div>
+            <div class="pill" style="margin-top:6px;">TRU • TRC-20 • TRON</div>
           </div>
         </a>
-        <div class="nav-links">
-          <a href="#about">О проекте</a>
-          <a href="#tokenomics">Токеномика</a>
-          <a href="#flow">Схема</a>
-          <a href="#roadmap">План</a>
-          <a href="#links">Ссылки</a>
-        </div>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#about">About</a>
+          <a href="#how">How it works</a>
+          <a href="#burn">Burn</a>
+          <a href="#build">Creation</a>
+          <a href="#faq">FAQ</a>
+          <a href="#links">Links</a>
+        </nav>
       </div>
     </div>
   </div>
@@ -264,50 +300,48 @@
       <div class="hero-grid">
         <div class="card hero-left">
           <div class="glow"></div>
-          <div class="pill">Trust • TRU • Utility Token</div>
-          <h1>Trust (TRU) — утилити-токен для оплат и скидок у партнёров</h1>
+          <div class="pill">Utility token for partner discounts & payments</div>
+          <h1>Trust (TRU) — a TRC-20 token for partner discounts on TRON</h1>
           <p class="sub">
-            TRU — токен на сети TRON (TRC-20), который используется для скидок при оплате сервисов у партнёров и
-            прозрачной механики ограниченного предложения. Проект не обещает фиксированную стоимость и не является стейблкоином.
+            TRU is a utility token designed for discounted payments at partner services and transparent on-chain mechanics.
+            TRU is <b>not</b> a stablecoin and does <b>not</b> guarantee any fixed price.
           </p>
 
           <div class="cta-row">
-            <a class="btn primary" href="#links">Официальные ссылки</a>
-            <a class="btn" href="#flow">Посмотреть схему токен-системы</a>
-            <a class="btn" href="#tokenomics">Токеномика</a>
+            <a class="btn primary" href="#how">See how it works</a>
+            <a class="btn" href="#build">How we create the token</a>
+            <a class="btn" href="#burn">Burn mechanics</a>
           </div>
 
           <div class="hr"></div>
-          <div class="warn">
-            <b>Важно:</b> TRU — это утилити-токен. Стоимость формируется рынком и ликвидностью. Информация на сайте —
-            справочная, не является инвестиционной рекомендацией.
+
+          <div class="note">
+            <b>Important:</b> Market price appears only after liquidity is added on a DEX pool.
+            Supply reduction (burn) can <b>reduce supply</b>, but price depends on <b>demand + liquidity</b> and is never guaranteed.
           </div>
         </div>
 
         <aside class="card hero-right">
           <div class="stat">
             <div class="k">Token</div>
-            <div class="v">Trust (TRU) <span class="muted">• TRC-20</span></div>
+            <div class="v">Trust (TRU) <span style="font-weight:700;color:var(--muted)">• TRC-20</span></div>
           </div>
-
           <div class="stat">
             <div class="k">Decimals</div>
             <div class="v">6</div>
           </div>
-
           <div class="stat">
             <div class="k">Total Supply</div>
             <div class="v">1,000,000,000 TRU</div>
-            <div class="muted" style="margin-top:6px;font-size:13px;">
-              Выпуск фиксированный. Возможна дефляция только через owner-burn (после деплоя).
+            <div style="margin-top:6px;color:var(--muted);font-size:13px;">
+              Fixed at deployment. Optional deflation via <b>owner-burn</b> only.
             </div>
           </div>
-
           <div class="stat">
-            <div class="k">Contract (будет добавлен после деплоя)</div>
+            <div class="k">Contract address</div>
             <div class="v mono">TBD</div>
-            <div class="muted" style="margin-top:6px;font-size:13px;">
-              После деплоя здесь появится адрес контракта, TronScan и DEX-ссылки.
+            <div style="margin-top:6px;color:var(--muted);font-size:13px;">
+              Will be added after mainnet deployment + TronScan verification.
             </div>
           </div>
         </aside>
@@ -318,266 +352,295 @@
   <!-- ABOUT -->
   <section id="about">
     <div class="wrap">
-      <h2>О проекте</h2>
+      <h2>About Trust</h2>
       <div class="grid3">
         <div class="mini">
-          <b>Зачем нужен TRU?</b>
-          TRU даёт пользователям <b>скидку</b> при оплате у партнёров. Если у пользователя нет TRU,
-          он может приобрести его на DEX после появления ликвидности.
-          <div class="tag">Фокус: утилити и партнёры</div>
+          <b>What TRU is for</b>
+          TRU is meant to be used at partner services: <b>pay in TRU → get a discount</b>.
+          If a user doesn’t have TRU, they can obtain it via a DEX after liquidity is available.
+          <div class="tag">Focus: utility + partners</div>
         </div>
         <div class="mini">
-          <b>Прозрачность</b>
-          Контракт TRU планируется с максимально стандартной TRC-20 логикой, без скрытых комиссий и налогов на переводы.
-          Код будет верифицирован на TronScan после деплоя.
-          <div class="tag">TRC-20 стандарт</div>
+          <b>Transparency</b>
+          The contract aims to follow standard TRC-20 behavior without hidden “taxes” on transfers.
+          Source code is intended to be verified on TronScan.
+          <div class="tag">Standard TRC-20</div>
         </div>
         <div class="mini">
-          <b>Дефляция (по желанию)</b>
-          Дефляция возможна только через <b>owner-burn</b> (сжигание с баланса владельца),
-          чтобы избежать “налогов” на транзакции и проблем совместимости.
-          <div class="tag">Owner-only burn</div>
+          <b>Risk-first approach</b>
+          Price is never promised. Market price depends on liquidity depth and demand.
+          This project is informational and experimental.
+          <div class="tag">No price guarantee</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TOKENOMICS -->
-  <section id="tokenomics">
+  <!-- HOW IT WORKS -->
+  <section id="how">
     <div class="wrap">
-      <h2>Токеномика (черновой план)</h2>
-      <div class="grid3">
-        <div class="mini">
-          <b>Предложение</b>
-          <div class="muted">Total supply:</div>
-          <div style="font-weight:800; font-size:18px; margin-top:6px;">1,000,000,000 TRU</div>
-          <div class="muted" style="margin-top:8px;">
-            Выпуск фиксированный в конструкторе контракта.
-          </div>
-        </div>
-        <div class="mini">
-          <b>Ликвидность</b>
-          <div class="muted">
-            На старте ликвидность планируется через DEX (SunSwap/JustSwap → обычно редирект на SunSwap).
-            Рекомендуем начинать с пары <b>TRU/TRX</b> (проще и дешевле для старта).
-          </div>
-          <div class="tag">Старт: TRU/TRX</div>
-        </div>
-        <div class="mini">
-          <b>Распределение</b>
-          <div class="muted">
-            Распределение зависит от стратегии запуска (LP, резерв, партнёрские выплаты).
-            Мы публикуем адреса для прозрачности после деплоя.
-          </div>
-          <div class="tag">Прозрачные адреса</div>
-        </div>
-      </div>
-
-      <div class="hr"></div>
-      <div class="warn">
-        <b>Примечание:</b> точные цифры распределения и адреса будут обновлены после деплоя и первичной настройки ликвидности.
-      </div>
-    </div>
-  </section>
-
-  <!-- FLOW / TOKEN SYSTEM DIAGRAM -->
-  <section id="flow">
-    <div class="wrap">
-      <h2>Схема токен-системы: TRU, платежи, burn, резервы</h2>
-      <div class="flow">
-        <!-- Inline SVG diagram (no external images needed) -->
-        <svg viewBox="0 0 1100 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Trust token system flow">
+      <h2>How it works</h2>
+      <div class="flow" aria-label="Token system flowchart">
+        <!-- Responsive SVG flowchart (English) -->
+        <svg viewBox="0 0 1100 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Trust token system diagram">
           <defs>
-            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="rgba(122,166,255,.35)"/>
-              <stop offset="1" stop-color="rgba(114,255,216,.18)"/>
+            <linearGradient id="bgCard" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="rgba(47,107,255,.12)"/>
+              <stop offset="1" stop-color="rgba(21,199,168,.10)"/>
             </linearGradient>
-            <linearGradient id="g2" x1="1" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="rgba(114,255,216,.28)"/>
-              <stop offset="1" stop-color="rgba(122,166,255,.16)"/>
-            </linearGradient>
-            <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
-              <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="rgba(0,0,0,.45)" />
+            <filter id="sh" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="rgba(15,33,80,.14)" />
             </filter>
             <style>
-              .box { fill: rgba(255,255,255,.04); stroke: rgba(255,255,255,.12); stroke-width: 1.2; rx:18; filter:url(#shadow); }
-              .box2{ fill: url(#g1); stroke: rgba(255,255,255,.14); stroke-width: 1.2; rx:18; filter:url(#shadow); }
-              .t { fill: rgba(233,238,255,.95); font: 600 16px ui-sans-serif, system-ui; }
-              .s { fill: rgba(167,176,214,.95); font: 500 13px ui-sans-serif, system-ui; }
-              .a { stroke: rgba(233,238,255,.55); stroke-width: 2; fill:none; marker-end:url(#arr); }
-              .b { stroke: rgba(114,255,216,.75); stroke-width: 2.2; fill:none; marker-end:url(#arr2); }
-              .c { stroke: rgba(255,204,102,.75); stroke-width: 2.2; fill:none; marker-end:url(#arr3); }
+              .box { fill: rgba(255,255,255,.86); stroke: rgba(16,31,69,.12); stroke-width: 1.2; rx:18; filter:url(#sh); }
+              .boxA{ fill: url(#bgCard); stroke: rgba(16,31,69,.12); stroke-width: 1.2; rx:18; filter:url(#sh); }
+              .t { fill: rgba(12,22,51,.98); font: 800 18px ui-sans-serif, system-ui; }
+              .s { fill: rgba(74,90,122,.98); font: 600 14px ui-sans-serif, system-ui; }
+              .a { stroke: rgba(12,22,51,.55); stroke-width: 2.2; fill:none; marker-end:url(#arr); }
+              .b { stroke: rgba(21,199,168,.85); stroke-width: 2.6; fill:none; marker-end:url(#arr2); }
+              .c { stroke: rgba(255,176,32,.90); stroke-width: 2.6; fill:none; marker-end:url(#arr3); }
             </style>
-            <marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-              <path d="M0,0 L9,3 L0,6 Z" fill="rgba(233,238,255,.6)"/>
+            <marker id="arr" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto">
+              <path d="M0,0 L10,4 L0,8 Z" fill="rgba(12,22,51,.65)"/>
             </marker>
-            <marker id="arr2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-              <path d="M0,0 L9,3 L0,6 Z" fill="rgba(114,255,216,.75)"/>
+            <marker id="arr2" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto">
+              <path d="M0,0 L10,4 L0,8 Z" fill="rgba(21,199,168,.90)"/>
             </marker>
-            <marker id="arr3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-              <path d="M0,0 L9,3 L0,6 Z" fill="rgba(255,204,102,.8)"/>
+            <marker id="arr3" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto">
+              <path d="M0,0 L10,4 L0,8 Z" fill="rgba(255,176,32,.95)"/>
             </marker>
           </defs>
 
           <!-- Boxes -->
-          <rect class="box2" x="45" y="55" width="290" height="120" rx="18"/>
-          <text class="t" x="70" y="88">Пользователь</text>
-          <text class="s" x="70" y="112">Покупает TRU на DEX</text>
-          <text class="s" x="70" y="134">или получает у партнёра</text>
+          <rect class="boxA" x="45" y="60" width="310" height="130" rx="18"/>
+          <text class="t" x="70" y="95">User</text>
+          <text class="s" x="70" y="122">Buys TRU on a DEX</text>
+          <text class="s" x="70" y="145">or receives TRU from a partner</text>
 
-          <rect class="box" x="405" y="55" width="310" height="120" rx="18"/>
-          <text class="t" x="430" y="88">DEX пул ликвидности</text>
-          <text class="s" x="430" y="112">TRU/TRX (или TRU/USDT)</text>
-          <text class="s" x="430" y="134">Формирует рыночную цену</text>
+          <rect class="box" x="405" y="60" width="330" height="130" rx="18"/>
+          <text class="t" x="430" y="95">DEX Liquidity Pool</text>
+          <text class="s" x="430" y="122">TRU/TRX (or TRU/USDT)</text>
+          <text class="s" x="430" y="145">Forms a market price (via swaps)</text>
 
-          <rect class="box" x="785" y="55" width="270" height="120" rx="18"/>
-          <text class="t" x="810" y="88">Партнёрские сервисы</text>
-          <text class="s" x="810" y="112">Оплата в TRU = скидка</text>
-          <text class="s" x="810" y="134">Оплата в USDT/TRX = без скидки</text>
+          <rect class="box" x="785" y="60" width="270" height="130" rx="18"/>
+          <text class="t" x="810" y="95">Partner Services</text>
+          <text class="s" x="810" y="122">Pay in TRU = discount</text>
+          <text class="s" x="810" y="145">Pay in USDT/TRX = no discount</text>
 
-          <rect class="box" x="405" y="235" width="310" height="140" rx="18"/>
-          <text class="t" x="430" y="268">Резерв / казначейство</text>
-          <text class="s" x="430" y="292">Фонд на поддержку партнёров</text>
-          <text class="s" x="430" y="314">и дополнительную ликвидность</text>
-          <text class="s" x="430" y="336">(публичные адреса)</text>
+          <rect class="box" x="405" y="245" width="330" height="155" rx="18"/>
+          <text class="t" x="430" y="280">Treasury / Reserve</text>
+          <text class="s" x="430" y="307">Supports partner incentives</text>
+          <text class="s" x="430" y="330">and additional liquidity</text>
+          <text class="s" x="430" y="353">(public addresses)</text>
 
-          <rect class="box" x="785" y="245" width="270" height="120" rx="18"/>
-          <text class="t" x="810" y="278">Deflation (owner-burn)</text>
-          <text class="s" x="810" y="302">Сжигание TRU только</text>
-          <text class="s" x="810" y="324">с баланса владельца</text>
+          <rect class="box" x="785" y="260" width="270" height="140" rx="18"/>
+          <text class="t" x="810" y="295">Deflation (owner-burn)</text>
+          <text class="s" x="810" y="322">Supply may be reduced</text>
+          <text class="s" x="810" y="345">only from owner balance</text>
 
           <!-- Arrows -->
-          <path class="a" d="M335 115 C365 115, 375 115, 405 115"/>
-          <path class="a" d="M715 115 C745 115, 755 115, 785 115"/>
-          <path class="b" d="M560 175 C560 205, 560 210, 560 235"/>
-          <path class="c" d="M715 305 C745 305, 755 305, 785 305"/>
+          <path class="a" d="M355 125 C380 125, 390 125, 405 125"/>
+          <path class="a" d="M735 125 C760 125, 770 125, 785 125"/>
+          <path class="b" d="M570 190 C570 220, 570 225, 570 245"/>
+          <path class="c" d="M735 330 C760 330, 770 330, 785 330"/>
 
           <!-- Labels -->
-          <text class="s" x="345" y="96">TRX/USDT → TRU</text>
-          <text class="s" x="725" y="96">TRU оплата</text>
-          <text class="s" x="575" y="220">часть дохода/резерв</text>
-          <text class="s" x="725" y="286">снижение supply</text>
+          <text class="s" x="362" y="108">TRX/USDT → TRU</text>
+          <text class="s" x="742" y="108">TRU payment</text>
+          <text class="s" x="585" y="232">part of revenue / reserve</text>
+          <text class="s" x="742" y="312">supply reduction</text>
         </svg>
       </div>
 
       <div class="hr"></div>
-      <div class="mini">
-        <b>Что означает схема?</b>
-        <div class="muted">
-          Цена TRU появляется только после ликвидности в DEX-пуле. Скидка у партнёров стимулирует спрос на TRU,
-          а дефляция (если будет использоваться) возможна только через контролируемое owner-burn и не влияет на переводы пользователей.
-        </div>
+
+      <div class="ok">
+        <b>Key idea:</b> TRU becomes useful when partners accept it for discounts.
+        Liquidity on a DEX enables swapping, which creates a market price. Treasury can be used to support adoption (e.g., partner campaigns).
       </div>
     </div>
   </section>
 
-  <!-- ROADMAP -->
-  <section id="roadmap">
+  <!-- BURN -->
+  <section id="burn">
     <div class="wrap">
-      <h2>План запуска (минимальный)</h2>
+      <h2>Burn mechanics (deflation)</h2>
       <div class="grid3">
         <div class="mini">
-          <b>Этап 1 — Подготовка</b>
-          <div class="muted">
-            Финализация контракта, сайт, соцсети, описание для TronScan, кошельки (owner/LP/test).
-          </div>
-          <div class="tag badge-ok">✓ готовим сейчас</div>
+          <b>What “burn” means</b>
+          Burning removes tokens from circulation by sending them to an irrecoverable state.
+          In our approach, burn is <b>owner-controlled</b> and does not tax users’ transfers.
+          <div class="tag">Owner-only burn</div>
         </div>
+
         <div class="mini">
-          <b>Этап 2 — Деплой</b>
-          <div class="muted">
-            Деплой в mainnet после стейка TRX в Energy. Сразу — verify на TronScan.
-          </div>
-          <div class="tag">скоро</div>
+          <b>Will price increase?</b>
+          Burn can reduce supply, which <b>may</b> support price if demand stays the same or increases.
+          Price depends on liquidity depth and market demand — <b>no guarantees</b>.
+          <div class="tag">Market-driven price</div>
         </div>
+
         <div class="mini">
-          <b>Этап 3 — Ликвидность</b>
-          <div class="muted">
-            Добавление ликвидности в DEX (рекомендуем начать с TRU/TRX V2),
-            тестовые транзакции и публикация ссылок.
-          </div>
-          <div class="tag">после деплоя</div>
+          <b>Why avoid transfer taxes</b>
+          Transfer taxes often break compatibility, confuse wallets, and can harm reputation.
+          Owner-burn is simpler and transparent.
+          <div class="tag">Compatibility first</div>
         </div>
       </div>
+
+      <div class="hr"></div>
+
+      <div class="note">
+        <b>Policy suggestion:</b> If burn is used, publish a clear rule (e.g., “Burn up to X% from treasury per quarter”)
+        and announce each burn with a transaction link (TronScan).
+      </div>
+    </div>
+  </section>
+
+  <!-- CREATION / BUILD -->
+  <section id="build">
+    <div class="wrap">
+      <h2>Creation (how the token is made on-chain)</h2>
+
+      <div class="grid3">
+        <div class="mini">
+          <b>1) Prepare</b>
+          Decide token name/symbol, decimals (6), total supply, and owner wallet.
+          Create separate wallets for: <b>Owner</b>, <b>LP</b>, <b>Testing</b>.
+          <div class="tag">Wallet hygiene</div>
+        </div>
+
+        <div class="mini">
+          <b>2) Deploy</b>
+          Deploy the TRC-20 contract on TRON mainnet (TronIDE / TronLink).
+          Make sure you have enough <b>Energy</b> (stake TRX or rent energy).
+          <div class="tag">Avoid OUT_OF_ENERGY</div>
+        </div>
+
+        <div class="mini">
+          <b>3) Verify & Publish</b>
+          Verify source code on TronScan, set project info (logo, website, description),
+          and then add liquidity on a DEX pool.
+          <div class="tag">TronScan verified</div>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="mini">
+        <h3>Why Energy matters (your last error)</h3>
+        <p class="sub" style="margin:0;">
+          Contract deployment is a heavy operation on TRON. If you don’t have enough Energy,
+          TRON will burn TRX as an energy fee — and if the transaction still runs out, it can fail while still costing you fees.
+          <br><br>
+          <b>Best practice:</b> stake TRX for Energy (or rent Energy) before deploying.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <h2>FAQ</h2>
+
+      <details>
+        <summary>Why do wallets sometimes not show new tokens automatically?</summary>
+        <p>
+          Many wallets only auto-show tokens that are known/verified or have enough activity.
+          New contracts often require manual “Add token” until they are indexed and recognized by token lists/trackers.
+        </p>
+      </details>
+
+      <details>
+        <summary>What makes a token “trusted” on explorers?</summary>
+        <p>
+          Verification, complete project metadata (website, socials, logo), non-suspicious contract behavior,
+          liquidity presence, and organic usage. Some reputation systems also rely on user reports.
+        </p>
+      </details>
+
+      <details>
+        <summary>Does adding more liquidity later work?</summary>
+        <p>
+          Yes. Liquidity can be increased any time by adding more assets to the pool. Removing liquidity is also possible
+          if you hold the LP position/tokens — but removal affects price impact and market trust.
+        </p>
+      </details>
     </div>
   </section>
 
   <!-- LINKS -->
   <section id="links">
     <div class="wrap">
-      <h2>Официальные ссылки</h2>
+      <h2>Official links</h2>
       <div class="grid3">
         <div class="mini">
           <b>Website</b>
-          <div class="muted">GitHub Pages</div>
-          <div class="mono" style="margin-top:8px;">(вставь ссылку после публикации)</div>
-          <div class="tag">Рекомендуется TronScan</div>
+          <div style="color:var(--muted)">GitHub Pages</div>
+          <div class="mono" style="margin-top:8px;">(add your GitHub Pages URL here)</div>
+          <div class="tag">Recommended for TronScan</div>
         </div>
+
         <div class="mini">
           <b>X (Twitter)</b>
-          <div class="muted">Новости проекта</div>
-          <div style="margin-top:8px;">
-            <a class="btn" href="https://x.com/your_Trust1" target="_blank" rel="noreferrer">Открыть @your_Trust1</a>
+          <div style="color:var(--muted)">News & updates</div>
+          <div style="margin-top:10px;">
+            <a class="btn" href="https://x.com/your_Trust1" target="_blank" rel="noreferrer">Open @your_Trust1</a>
           </div>
         </div>
+
         <div class="mini">
           <b>Contact</b>
-          <div class="muted">Email</div>
+          <div style="color:var(--muted)">Email</div>
           <div class="mono" style="margin-top:8px;">yourtrusd@gmail.com</div>
-          <div class="tag">Для партнёров и поддержки</div>
+          <div class="tag">Partners & support</div>
         </div>
       </div>
 
       <div class="hr"></div>
 
-      <div class="mini">
-        <b>Contract / TronScan / DEX</b>
-        <div class="muted">
-          После деплоя сюда добавим:
-          <ul>
-            <li>Адрес контракта TRU</li>
-            <li>Ссылку на TronScan (Token + Contract)</li>
-            <li>Ссылку на пул ликвидности и swap на DEX</li>
-          </ul>
-          <div class="muted">Пока: <span class="mono">TBD</span></div>
-        </div>
+      <div class="note">
+        <b>After deployment:</b> paste the TRU contract address into this page and add links to TronScan (token + contract),
+        and the DEX pool (swap + liquidity position).
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="footer">
+  <footer>
     <div class="wrap">
       <div class="footer-grid">
         <div>
           <div style="display:flex; align-items:center; gap:10px;">
-            <img src="logo.png" alt="Trust logo" style="width:34px;height:34px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);" />
+            <img src="logo.png" alt="Trust logo" style="width:34px;height:34px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.9);" />
             <div>
               <b style="color:var(--text)">Trust (TRU)</b>
-              <div class="muted">TRC-20 utility token on TRON</div>
+              <div style="color:var(--muted)">TRC-20 utility token on TRON</div>
             </div>
           </div>
 
           <div class="hr"></div>
 
-          <div class="muted">
-            <b>Disclaimer:</b> этот сайт носит информационный характер.
-            TRU не является стейблкоином и не гарантирует фиксированную стоимость. Любые действия с токеном вы совершаете на свой риск.
+          <div style="color:var(--muted)">
+            <b>Disclaimer:</b> This website is for informational purposes only and is not financial advice.
+            TRU is not a stablecoin and does not promise a fixed value. Price depends on market conditions (liquidity & demand).
           </div>
         </div>
 
         <div class="small-links">
-          <b style="color:var(--text)">Навигация</b>
+          <b style="color:var(--text)">Navigation</b>
           <div class="hr"></div>
           <div style="display:grid; gap:8px;">
-            <a href="#about">О проекте</a>
-            <a href="#tokenomics">Токеномика</a>
-            <a href="#flow">Схема системы</a>
-            <a href="#roadmap">План запуска</a>
-            <a href="#links">Официальные ссылки</a>
+            <a href="#about">About</a>
+            <a href="#how">How it works</a>
+            <a href="#burn">Burn</a>
+            <a href="#build">Creation</a>
+            <a href="#faq">FAQ</a>
+            <a href="#links">Links</a>
           </div>
           <div class="hr"></div>
-          <div class="muted">© <span id="y"></span> Trust. All rights reserved.</div>
+          <div style="color:var(--muted)">© <span id="y"></span> Trust. All rights reserved.</div>
         </div>
       </div>
     </div>
